@@ -1,0 +1,3 @@
+[submodule "Drivers/freemodbus"]
+	path = Drivers/freemodbus
+	url = https://github.com/ywan04/freemodbus-port-hal-stm32f1xx
