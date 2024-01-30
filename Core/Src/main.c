@@ -79,8 +79,8 @@ static void MX_USART3_UART_Init(void);
 int main(void)
 {
   /* USER CODE BEGIN 1 */
-  hx711 first_adc;
-  hx711 second_adc;
+  hx711_t first_adc;
+  hx711_t second_adc;
   /* USER CODE END 1 */
 
   /* MCU Configuration--------------------------------------------------------*/

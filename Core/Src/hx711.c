@@ -19,7 +19,7 @@ void hx711_delay(uint16_t us)
 	while(__HAL_TIM_GET_COUNTER(hx711_tim) < us);
 }
 
-void hx711_init(hx711 *adc, uint16_t dt_pin, uint16_t sck_pin)
+void hx711_init(hx711_t *adc, uint16_t dt_pin, uint16_t sck_pin)
 {
 	adc->dt_pin  = dt_pin;
 	adc->sck_pin = sck_pin;
@@ -27,7 +27,7 @@ void hx711_init(hx711 *adc, uint16_t dt_pin, uint16_t sck_pin)
 	HAL_GPIO_WritePin(GPIOA, sck_pin, GPIO_PIN_RESET);
 }
 
-void hx711_set_gain(hx711 *adc, uint8_t gain)
+void hx711_set_gain(hx711_t *adc, uint8_t gain)
 {
 	if (gain < 64) {
 		adc->gain = 2; // B channel
@@ -38,7 +38,7 @@ void hx711_set_gain(hx711 *adc, uint8_t gain)
 	}
 }
 
-int32_t hx711_get_value(hx711 *adc)
+int32_t hx711_get_value(hx711_t *adc)
 {
 	while (!hx711_is_ready(adc))
 		hx711_delay(1);
@@ -74,7 +74,7 @@ int32_t hx711_get_value(hx711 *adc)
 	return fill + data;
 }
 
-uint8_t hx711_is_ready(hx711 *adc)
+uint8_t hx711_is_ready(hx711_t *adc)
 {
 	return HAL_GPIO_ReadPin(GPIOA, adc->dt_pin) == GPIO_PIN_RESET;
 }
