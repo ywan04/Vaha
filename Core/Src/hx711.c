@@ -29,12 +29,16 @@ void hx711_init(hx711_t *adc, uint16_t dt_pin, uint16_t sck_pin)
 
 void hx711_set_gain(hx711_t *adc, uint8_t gain)
 {
-	if (gain < 64) {
-		adc->gain = 2; // B channel
-	} else if (gain < 128) {
-		adc->gain = 3; // A channel
-	} else {
-		adc->gain = 1; // A channel
+	switch (gain) {
+	case 128:
+		adc->gain = 1;
+		break;
+	case 64:
+		adc->gain = 3;
+		break;
+	case 32:
+		adc->gain = 2;
+		break;
 	}
 }
 
@@ -52,8 +56,9 @@ int32_t hx711_get_value(hx711_t *adc)
 		hx711_delay(1);
 		dt = HAL_GPIO_ReadPin(GPIOA, adc->dt_pin);
 		data <<= 1;
-		if (dt)
+		if (dt) {
 			++data;
+		}
 		HAL_GPIO_WritePin(GPIOA, adc->sck_pin, GPIO_PIN_RESET);
 		hx711_delay(1);
 	}

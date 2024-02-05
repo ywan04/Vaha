@@ -135,10 +135,10 @@ int main(void)
 	if (usRegHoldingBuf[1]) {
 		hx711_set_gain(&first_adc, 32);
 		zero_first_weightA  = hx711_get_value(&first_adc);
-		hx711_set_gain(&first_adc, 128);
-		zero_first_weightB  = hx711_get_value(&first_adc);
 		hx711_set_gain(&second_adc, 32);
 		zero_second_weightA = hx711_get_value(&second_adc);
+		hx711_set_gain(&first_adc, 128);
+		zero_first_weightB  = hx711_get_value(&first_adc);
 		hx711_set_gain(&second_adc, 128);
 		zero_second_weightB = hx711_get_value(&second_adc);
 
@@ -148,14 +148,14 @@ int main(void)
 	if (usRegHoldingBuf[0]) {
 		hx711_set_gain(&first_adc, 32);
 		first_weightA  = hx711_get_value(&first_adc) - zero_first_weightA;
-		hx711_set_gain(&first_adc, 128);
-		first_weightB  = hx711_get_value(&first_adc) - zero_first_weightB;
 		hx711_set_gain(&second_adc, 32);
 		second_weightA = hx711_get_value(&second_adc) - zero_second_weightA;
+		hx711_set_gain(&first_adc, 128);
+		first_weightB  = hx711_get_value(&first_adc) - zero_first_weightB;
 		hx711_set_gain(&second_adc, 128);
 		second_weightB = hx711_get_value(&second_adc) - zero_second_weightB;
 
-		weight = (first_weightA + first_weightB + second_weightA + second_weightB) / 4 / 100;
+		weight = (first_weightA + first_weightB + second_weightA + second_weightB) / 100;
 
 		usRegInputBuf[0] = weight >> 16;
 		usRegInputBuf[1] = weight & 0xFFFF;
