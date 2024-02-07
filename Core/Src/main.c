@@ -155,7 +155,7 @@ int main(void)
 		hx711_set_gain(&second_adc, 128);
 		second_weightB = hx711_get_value(&second_adc) - zero_second_weightB;
 
-		weight = (first_weightA + first_weightB + second_weightA + second_weightB) / 100;
+		weight = (first_weightA + second_weightA + (first_weightB + second_weightB) / 4) / 100;
 
 		usRegInputBuf[0] = weight >> 16;
 		usRegInputBuf[1] = weight & 0xFFFF;
